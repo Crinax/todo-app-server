@@ -14,3 +14,13 @@ pub trait LoadTaskPort {
 pub trait SearchTasksByNamePort {
     async fn search_tasks_by_name(&self, name: &MinLenString<3>) -> Vec<Task>;
 }
+
+pub trait CreateTaskPort {
+    type CreateTaskPortError;
+
+    async fn save_task(
+        &self,
+        name: &MinLenString<3>,
+        description: &MinLenString<3>,
+    ) -> Result<Task, Self::CreateTaskPortError>;
+}
