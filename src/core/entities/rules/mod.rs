@@ -1,3 +1,4 @@
+pub mod min_len_string;
 pub mod string_based_id;
 
 pub trait BuisnessRule {
