@@ -10,6 +10,12 @@ pub struct CreateTaskService<T: CreateTaskPort> {
     port: T,
 }
 
+impl<T: CreateTaskPort> CreateTaskService<T> {
+    pub fn new(port: T) -> Self {
+        Self { port }
+    }
+}
+
 impl<T: CreateTaskPort> CreateTaskUseCase for CreateTaskService<T> {
     type CreateTaskUseCaseError = T::CreateTaskPortError;
 
