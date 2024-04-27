@@ -1,7 +1,5 @@
-use crate::core::entities::task::Task;
+use crate::core::{entities::task::Task, ports::primary::Query};
 
-pub trait GetAllTasksQuery {
-    async fn execute<T>(&self) -> Vec<T>
-    where
-        T: Into<Task>;
-}
+pub trait GetAllTasksQuery: Query<Vec<Task>> {}
+pub trait GetTaskByIdQuery: Query<Option<Task>> {}
+pub trait SearchTasksByName: Query<Vec<Task>> {}
