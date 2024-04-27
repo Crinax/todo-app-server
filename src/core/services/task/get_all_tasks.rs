@@ -1,9 +1,6 @@
 use crate::core::{
     entities::task::Task,
-    ports::{
-        primary::{task::GetAllTasksQuery, Query},
-        secondary::task::LoadManyTasksPort,
-    },
+    ports::{primary::task::GetAllTasksQuery, secondary::task::LoadManyTasksPort},
 };
 
 pub struct GetAllTasksService<T: LoadManyTasksPort> {
@@ -16,10 +13,8 @@ impl<T: LoadManyTasksPort> GetAllTasksService<T> {
     }
 }
 
-impl<T: LoadManyTasksPort> Query<Vec<Task>> for GetAllTasksService<T> {
-    async fn execute(&self) -> Vec<Task> {
+impl<T: LoadManyTasksPort> GetAllTasksQuery for GetAllTasksService<T> {
+    async fn get_all_tasks(&self) -> Vec<Task> {
         self.port.load_many_tasks().await
     }
 }
-
-impl<T: LoadManyTasksPort> GetAllTasksQuery for GetAllTasksService<T> {}

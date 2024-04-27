@@ -1,26 +1,20 @@
 use crate::core::{
     entities::{rules::string_based_id::StringBasedId, task::Task},
-    ports::{
-        primary::{task::GetTaskByIdQuery, Query},
-        secondary::task::LoadTaskPort,
-    },
+    ports::{primary::task::GetTaskByIdQuery, secondary::task::LoadTaskPort},
 };
 
 pub struct GetTaskService<T: LoadTaskPort> {
     port: T,
-    id: StringBasedId,
 }
 
 impl<T: LoadTaskPort> GetTaskService<T> {
-    pub fn new(port: T, id: StringBasedId) -> Self {
-        Self { port, id }
+    pub fn new(port: T) -> Self {
+        Self { port }
     }
 }
 
-impl<T: LoadTaskPort> Query<Option<Task>> for GetTaskService<T> {
-    async fn execute(&self) -> Option<Task> {
-        self.port.load_task(&self.id).await
+impl<T: LoadTaskPort> GetTaskByIdQuery for GetTaskService<T> {
+    async fn get_task_by_id(&self, id: &StringBasedId) -> Option<Task> {
+        self.port.load_task(id).await
     }
 }
-
-impl<T: LoadTaskPort> GetTaskByIdQuery for GetTaskService<T> {}
