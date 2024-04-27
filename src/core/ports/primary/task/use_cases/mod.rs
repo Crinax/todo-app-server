@@ -2,7 +2,7 @@ use crate::core::{
     entities::task::Task, ports::primary::task::commands::create_task::CreateTaskCommand,
 };
 
-trait CreateTaskUseCase {
+pub trait CreateTaskUseCase {
     type CreateTaskUseCaseError;
 
     async fn create_task(

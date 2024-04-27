@@ -18,9 +18,9 @@ pub trait SearchTasksByNamePort {
 pub trait CreateTaskPort {
     type CreateTaskPortError;
 
-    async fn save_task(
+    async fn create_task(
         &self,
         name: &MinLenString<3>,
-        description: &MinLenString<3>,
+        description: &MinLenString<0>,
     ) -> Result<Task, Self::CreateTaskPortError>;
 }

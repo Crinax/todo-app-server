@@ -1,6 +1,8 @@
 use crate::core::{
     entities::{rules::min_len_string::MinLenString, task::Task},
-    ports::secondary::task::SearchTasksByNamePort,
+    ports::{
+        primary::task::queries::SearchTasksByNameQuery, secondary::task::SearchTasksByNamePort,
+    },
 };
 
 pub struct SearchTasksByNameService<T: SearchTasksByNamePort> {
@@ -13,7 +15,7 @@ impl<T: SearchTasksByNamePort> SearchTasksByNameService<T> {
     }
 }
 
-impl<T: SearchTasksByNamePort> SearchTasksByNamePort for SearchTasksByNameService<T> {
+impl<T: SearchTasksByNamePort> SearchTasksByNameQuery for SearchTasksByNameService<T> {
     async fn search_tasks_by_name(&self, name: &MinLenString<3>) -> Vec<Task> {
         self.port.search_tasks_by_name(name).await
     }
