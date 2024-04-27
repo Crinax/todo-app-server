@@ -12,5 +12,5 @@ pub trait GetTaskByIdQuery {
 }
 
 pub trait SearchTasksByNameQuery {
-    async fn search_tasks_by_name(&self, name: &MinLenString<3>) -> Vec<Task>;
+    async fn search_tasks_by_name(&self, name: &MinLenString<1>) -> Vec<Task>;
 }

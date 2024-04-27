@@ -12,7 +12,7 @@ pub trait LoadTaskPort {
 }
 
 pub trait SearchTasksByNamePort {
-    async fn search_tasks_by_name(&self, name: &MinLenString<3>) -> Vec<Task>;
+    async fn search_tasks_by_name(&self, name: &MinLenString<1>) -> Vec<Task>;
 }
 
 pub trait CreateTaskPort {
@@ -20,7 +20,7 @@ pub trait CreateTaskPort {
 
     async fn create_task(
         &self,
-        name: &MinLenString<3>,
+        name: &MinLenString<1>,
         description: &MinLenString<0>,
     ) -> Result<Task, Self::CreateTaskPortError>;
 }

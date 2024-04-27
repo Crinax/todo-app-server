@@ -6,7 +6,7 @@ pub enum CreateTaskCommandError {
 }
 
 pub struct CreateTaskCommand {
-    name: MinLenString<3>,
+    name: MinLenString<1>,
     description: MinLenString<0>,
 }
 
@@ -24,7 +24,7 @@ impl CreateTaskCommand {
         Ok(Self { name, description })
     }
 
-    pub fn get_name(&self) -> &MinLenString<3> {
+    pub fn get_name(&self) -> &MinLenString<1> {
         &self.name
     }
 

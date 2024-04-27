@@ -5,6 +5,7 @@ pub enum MinLenStringError {
     TooShort,
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct MinLenString<const N: usize>(pub String);
 
 impl<const N: usize> BuisnessRule for MinLenString<N> {

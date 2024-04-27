@@ -5,6 +5,7 @@ pub enum StringBasedIdParseError {
     EmptyId,
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct StringBasedId(pub String);
 
 impl BuisnessRule for StringBasedId {
