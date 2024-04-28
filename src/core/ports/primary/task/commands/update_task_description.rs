@@ -1,5 +1,5 @@
 use crate::core::entities::rules::{
-    min_len_string::MinLenString, string_based_id::StringBasedId, BuisnessRule,
+    min_len_string::MinLenString, string_based_id::StringBasedId, BusinessRule,
 };
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]

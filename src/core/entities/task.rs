@@ -38,3 +38,11 @@ impl Task {
         self.description = description
     }
 }
+
+impl PartialEq for Task {
+    fn eq(&self, other: &Self) -> bool {
+        self.id == other.id
+    }
+}
+
+impl Eq for Task {}

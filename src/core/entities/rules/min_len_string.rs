@@ -1,4 +1,4 @@
-use crate::core::entities::rules::BuisnessRule;
+use crate::core::entities::rules::BusinessRule;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MinLenStringError {
@@ -8,7 +8,7 @@ pub enum MinLenStringError {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct MinLenString<const N: usize>(pub String);
 
-impl<const N: usize> BuisnessRule for MinLenString<N> {
+impl<const N: usize> BusinessRule for MinLenString<N> {
     type Error = MinLenStringError;
 
     fn parse(input: String) -> Result<Self, Self::Error>

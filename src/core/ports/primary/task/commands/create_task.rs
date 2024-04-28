@@ -1,4 +1,4 @@
-use crate::core::entities::rules::{min_len_string::MinLenString, BuisnessRule};
+use crate::core::entities::rules::{min_len_string::MinLenString, BusinessRule};
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum CreateTaskCommandError {

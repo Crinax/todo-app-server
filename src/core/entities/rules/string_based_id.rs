@@ -1,4 +1,4 @@
-use super::BuisnessRule;
+use super::BusinessRule;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum StringBasedIdParseError {
@@ -8,7 +8,7 @@ pub enum StringBasedIdParseError {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct StringBasedId(pub String);
 
-impl BuisnessRule for StringBasedId {
+impl BusinessRule for StringBasedId {
     type Error = StringBasedIdParseError;
 
     fn parse(input: String) -> Result<Self, Self::Error>

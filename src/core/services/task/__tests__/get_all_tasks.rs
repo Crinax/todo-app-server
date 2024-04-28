@@ -1,6 +1,6 @@
 use crate::core::{
     entities::{
-        rules::{min_len_string::MinLenString, string_based_id::StringBasedId, BuisnessRule},
+        rules::{min_len_string::MinLenString, string_based_id::StringBasedId, BusinessRule},
         task::Task,
     },
     ports::{primary::task::queries::GetAllTasksQuery, secondary::task::LoadManyTasksPort},

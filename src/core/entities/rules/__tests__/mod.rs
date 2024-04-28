@@ -1,7 +1,7 @@
 use crate::core::entities::rules::{
     min_len_string::{MinLenString, MinLenStringError},
     string_based_id::{StringBasedId, StringBasedIdParseError},
-    BuisnessRule,
+    BusinessRule,
 };
 
 #[test]
