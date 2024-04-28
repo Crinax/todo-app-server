@@ -24,7 +24,7 @@ impl<T: CreateTaskPort> CreateTaskUseCase for CreateTaskService<T> {
         command: CreateTaskCommand,
     ) -> Result<Task, Self::CreateTaskUseCaseError> {
         self.port
-            .create_task(command.get_name(), command.get_description())
+            .create_task(command.name(), command.description())
             .await
     }
 }

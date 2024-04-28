@@ -24,11 +24,11 @@ impl CreateTaskCommand {
         Ok(Self { name, description })
     }
 
-    pub fn get_name(&self) -> &MinLenString<1> {
+    pub fn name(&self) -> &MinLenString<1> {
         &self.name
     }
 
-    pub fn get_description(&self) -> &MinLenString<0> {
+    pub fn description(&self) -> &MinLenString<0> {
         &self.description
     }
 }

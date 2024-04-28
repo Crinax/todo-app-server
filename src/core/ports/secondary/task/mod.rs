@@ -24,3 +24,23 @@ pub trait CreateTaskPort {
         description: &MinLenString<0>,
     ) -> Result<Task, Self::CreateTaskPortError>;
 }
+
+pub trait UpdateTaskNamePort {
+    type UpdateTaskNamePortError;
+
+    async fn update_task_name(
+        &self,
+        id: &StringBasedId,
+        name: &MinLenString<1>,
+    ) -> Result<Task, Self::UpdateTaskNamePortError>;
+}
+
+pub trait UpdateTaskDescriptionPort {
+    type UpdateTaskDescriptionPortError;
+
+    async fn update_task_name(
+        &self,
+        id: &StringBasedId,
+        description: &MinLenString<0>,
+    ) -> Result<Task, Self::UpdateTaskDescriptionPortError>;
+}

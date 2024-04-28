@@ -1,5 +1,9 @@
 use crate::core::{
-    entities::task::Task, ports::primary::task::commands::create_task::CreateTaskCommand,
+    entities::task::Task,
+    ports::primary::task::commands::{
+        create_task::CreateTaskCommand, update_task_description::UpdateTaskDescriptionCommand,
+        update_task_name::UpdateTaskNameCommand,
+    },
 };
 
 pub trait CreateTaskUseCase {
@@ -9,4 +13,22 @@ pub trait CreateTaskUseCase {
         &self,
         command: CreateTaskCommand,
     ) -> Result<Task, Self::CreateTaskUseCaseError>;
+}
+
+pub trait UpdateTaskNameUseCase {
+    type UpdateTaskNameUseCaseError;
+
+    async fn update_task_name(
+        &self,
+        command: UpdateTaskNameCommand,
+    ) -> Result<Task, Self::UpdateTaskNameUseCaseError>;
+}
+
+pub trait UpdateTaskDescriptionUseCase {
+    type UpdateTaskDescriptionUseCaseError;
+
+    async fn update_task_description(
+        &self,
+        command: UpdateTaskDescriptionCommand,
+    ) -> Result<Task, Self::UpdateTaskDescriptionUseCaseError>;
 }
