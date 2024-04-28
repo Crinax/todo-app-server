@@ -10,12 +10,14 @@ use crate::core::{
 struct GetAllTasksAdapter {}
 
 impl LoadManyTasksPort for GetAllTasksAdapter {
-    async fn load_many_tasks(&self) -> Vec<Task> {
+    type LoadManyTasksPortError = ();
+
+    async fn load_many_tasks(&self) -> Result<Vec<Task>, Self::LoadManyTasksPortError> {
         let name = MinLenString::<1>::parse("task name".to_owned()).unwrap();
         let description = MinLenString::<0>::parse("".to_owned()).unwrap();
         let id = StringBasedId::parse("1".to_owned()).unwrap();
 
-        vec![Task::new(id, name, description)]
+        Ok(vec![Task::new(id, name, description)])
     }
 }
 
@@ -24,7 +26,7 @@ async fn should_get_all_tasks() {
     let adapter = GetAllTasksAdapter {};
     let service = GetAllTasksService::new(adapter);
 
-    let tasks = service.get_all_tasks().await;
+    let tasks = service.get_all_tasks().await.unwrap();
 
     assert!(!tasks.is_empty());
 

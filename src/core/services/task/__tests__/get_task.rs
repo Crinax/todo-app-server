@@ -10,12 +10,14 @@ use crate::core::{
 struct LoadTaskByIdAdapter {}
 
 impl LoadTaskPort for LoadTaskByIdAdapter {
-    async fn load_task(&self, task_id: &StringBasedId) -> Option<Task> {
+    type LoadTaskPortError = ();
+
+    async fn load_task(&self, task_id: &StringBasedId) -> Result<Task, Self::LoadTaskPortError> {
         let name = MinLenString::<1>::parse("task name".to_owned()).unwrap();
         let description = MinLenString::<0>::parse("".to_owned()).unwrap();
         let id = task_id.clone();
 
-        Some(Task::new(id, name, description))
+        Ok(Task::new(id, name, description))
     }
 }
 
@@ -28,7 +30,7 @@ async fn should_get_task() {
         .get_task_by_id(&StringBasedId::parse("1".to_owned()).unwrap())
         .await;
 
-    assert!(task.is_some());
+    assert!(task.is_ok());
 
     let task = task.unwrap();
 

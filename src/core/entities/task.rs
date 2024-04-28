@@ -29,4 +29,12 @@ impl Task {
     pub fn description(&self) -> &str {
         &self.desctription.0
     }
+
+    pub fn update_name(&mut self, name: MinLenString<1>) {
+        self.name = name
+    }
+
+    pub fn update_description(&mut self, description: MinLenString<0>) {
+        self.desctription = description
+    }
 }

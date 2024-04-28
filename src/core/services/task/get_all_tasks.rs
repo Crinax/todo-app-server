@@ -14,7 +14,9 @@ impl<T: LoadManyTasksPort> GetAllTasksService<T> {
 }
 
 impl<T: LoadManyTasksPort> GetAllTasksQuery for GetAllTasksService<T> {
-    async fn get_all_tasks(&self) -> Vec<Task> {
+    type GetAllTasksQueryError = T::LoadManyTasksPortError;
+
+    async fn get_all_tasks(&self) -> Result<Vec<Task>, Self::GetAllTasksQueryError> {
         self.port.load_many_tasks().await
     }
 }

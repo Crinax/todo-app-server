@@ -16,7 +16,12 @@ impl<T: SearchTasksByNamePort> SearchTasksByNameService<T> {
 }
 
 impl<T: SearchTasksByNamePort> SearchTasksByNameQuery for SearchTasksByNameService<T> {
-    async fn search_tasks_by_name(&self, name: &MinLenString<1>) -> Vec<Task> {
+    type SearchTasksByNameQueryError = T::SearchTasksByNamePortError;
+
+    async fn search_tasks_by_name(
+        &self,
+        name: &MinLenString<1>,
+    ) -> Result<Vec<Task>, Self::SearchTasksByNameQueryError> {
         self.port.search_tasks_by_name(name).await
     }
 }

@@ -4,13 +4,23 @@ use crate::core::entities::{
 };
 
 pub trait GetAllTasksQuery {
-    async fn get_all_tasks(&self) -> Vec<Task>;
+    type GetAllTasksQueryError;
+
+    async fn get_all_tasks(&self) -> Result<Vec<Task>, Self::GetAllTasksQueryError>;
 }
 
 pub trait GetTaskByIdQuery {
-    async fn get_task_by_id(&self, id: &StringBasedId) -> Option<Task>;
+    type GetTaskByIdQueryError;
+
+    async fn get_task_by_id(&self, id: &StringBasedId)
+        -> Result<Task, Self::GetTaskByIdQueryError>;
 }
 
 pub trait SearchTasksByNameQuery {
-    async fn search_tasks_by_name(&self, name: &MinLenString<1>) -> Vec<Task>;
+    type SearchTasksByNameQueryError;
+
+    async fn search_tasks_by_name(
+        &self,
+        name: &MinLenString<1>,
+    ) -> Result<Vec<Task>, Self::SearchTasksByNameQueryError>;
 }

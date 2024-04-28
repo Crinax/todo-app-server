@@ -14,7 +14,12 @@ impl<T: LoadTaskPort> GetTaskService<T> {
 }
 
 impl<T: LoadTaskPort> GetTaskByIdQuery for GetTaskService<T> {
-    async fn get_task_by_id(&self, id: &StringBasedId) -> Option<Task> {
+    type GetTaskByIdQueryError = T::LoadTaskPortError;
+
+    async fn get_task_by_id(
+        &self,
+        id: &StringBasedId,
+    ) -> Result<Task, Self::GetTaskByIdQueryError> {
         self.port.load_task(id).await
     }
 }

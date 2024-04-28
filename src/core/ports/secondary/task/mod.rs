@@ -4,15 +4,24 @@ use crate::core::entities::{
 };
 
 pub trait LoadManyTasksPort {
-    async fn load_many_tasks(&self) -> Vec<Task>;
+    type LoadManyTasksPortError;
+
+    async fn load_many_tasks(&self) -> Result<Vec<Task>, Self::LoadManyTasksPortError>;
 }
 
 pub trait LoadTaskPort {
-    async fn load_task(&self, task_id: &StringBasedId) -> Option<Task>;
+    type LoadTaskPortError;
+
+    async fn load_task(&self, task_id: &StringBasedId) -> Result<Task, Self::LoadTaskPortError>;
 }
 
 pub trait SearchTasksByNamePort {
-    async fn search_tasks_by_name(&self, name: &MinLenString<1>) -> Vec<Task>;
+    type SearchTasksByNamePortError;
+
+    async fn search_tasks_by_name(
+        &self,
+        name: &MinLenString<1>,
+    ) -> Result<Vec<Task>, Self::SearchTasksByNamePortError>;
 }
 
 pub trait CreateTaskPort {
@@ -25,22 +34,8 @@ pub trait CreateTaskPort {
     ) -> Result<Task, Self::CreateTaskPortError>;
 }
 
-pub trait UpdateTaskNamePort {
-    type UpdateTaskNamePortError;
+pub trait SaveTaskPort {
+    type SaveTaskPortError;
 
-    async fn update_task_name(
-        &self,
-        id: &StringBasedId,
-        name: &MinLenString<1>,
-    ) -> Result<Task, Self::UpdateTaskNamePortError>;
-}
-
-pub trait UpdateTaskDescriptionPort {
-    type UpdateTaskDescriptionPortError;
-
-    async fn update_task_name(
-        &self,
-        id: &StringBasedId,
-        description: &MinLenString<0>,
-    ) -> Result<Task, Self::UpdateTaskDescriptionPortError>;
+    async fn save_task(&self, task: &Task) -> Result<Task, Self::SaveTaskPortError>;
 }
