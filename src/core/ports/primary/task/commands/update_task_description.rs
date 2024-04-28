@@ -13,15 +13,11 @@ pub struct UpdateTaskDescriptionCommand {
 }
 
 impl UpdateTaskDescriptionCommand {
-    pub fn new(
-        id: String,
-        name: String,
-        description: String,
-    ) -> Result<Self, UpdateTaskDescriptionCommandError> {
+    pub fn new(id: String, description: String) -> Result<Self, UpdateTaskDescriptionCommandError> {
         let id =
             StringBasedId::parse(id).map_err(|_| UpdateTaskDescriptionCommandError::IdIsEmpty)?;
         // NOTE: never return an error here
-        let description = MinLenString::parse(name).unwrap();
+        let description = MinLenString::parse(description).unwrap();
 
         Ok(Self { id, description })
     }

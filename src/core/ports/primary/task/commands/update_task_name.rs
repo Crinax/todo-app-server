@@ -14,11 +14,7 @@ pub struct UpdateTaskNameCommand {
 }
 
 impl UpdateTaskNameCommand {
-    pub fn new(
-        id: String,
-        name: String,
-        description: String,
-    ) -> Result<Self, UpdateTaskNameCommandError> {
+    pub fn new(id: String, name: String) -> Result<Self, UpdateTaskNameCommandError> {
         let id = StringBasedId::parse(id).map_err(|_| UpdateTaskNameCommandError::IdIsEmpty)?;
         let name =
             MinLenString::parse(name).map_err(|_| UpdateTaskNameCommandError::NameTooShort)?;

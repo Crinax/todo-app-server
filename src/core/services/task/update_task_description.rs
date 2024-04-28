@@ -10,13 +10,13 @@ use crate::core::{
     services::Either,
 };
 
-struct UpdateTaskDescriptionService<T: SaveTaskPort, R: LoadTaskPort> {
+pub struct UpdateTaskDescriptionService<T: SaveTaskPort, R: LoadTaskPort> {
     save_port: T,
     load_port: R,
 }
 
 impl<T: SaveTaskPort, R: LoadTaskPort> UpdateTaskDescriptionService<T, R> {
-    fn new(save_port: T, load_port: R) -> Self {
+    pub fn new(save_port: T, load_port: R) -> Self {
         Self {
             save_port,
             load_port,
