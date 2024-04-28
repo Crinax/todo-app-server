@@ -1,5 +1,3 @@
-use std::sync::Arc;
-
 use crate::core::{
     entities::{
         rules::{min_len_string::MinLenString, string_based_id::StringBasedId, BuisnessRule},
@@ -7,12 +5,18 @@ use crate::core::{
     },
     ports::{
         primary::task::{
-            commands::update_task_description::UpdateTaskDescriptionCommand,
-            use_cases::UpdateTaskDescriptionUseCase,
+            commands::{
+                update_task_description::UpdateTaskDescriptionCommand,
+                update_task_name::UpdateTaskNameCommand,
+            },
+            use_cases::{UpdateTaskDescriptionUseCase, UpdateTaskNameUseCase},
         },
         secondary::task::{LoadTaskPort, SaveTaskPort},
     },
-    services::task::update_task_description::UpdateTaskDescriptionService,
+    services::task::{
+        update_task_description::UpdateTaskDescriptionService,
+        update_task_name::UpdateTaskNameService,
+    },
 };
 
 #[derive(Clone)]
@@ -51,4 +55,19 @@ async fn update_task_description() {
     let task = result.unwrap();
 
     assert_eq!(task.description(), "1234");
+}
+
+#[tokio::test]
+async fn update_task_name() {
+    let adapter = LoadSaveTaskAdapter {};
+    let service = UpdateTaskNameService::new(adapter.clone(), adapter);
+    let command = UpdateTaskNameCommand::new("1".to_owned(), "1234".to_owned()).unwrap();
+
+    let result = service.update_task_name(command).await;
+
+    assert!(result.is_ok());
+
+    let task = result.unwrap();
+
+    assert_eq!(task.name(), "1234");
 }
