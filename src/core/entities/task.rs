@@ -6,15 +6,15 @@ use super::rules::string_based_id::StringBasedId;
 pub struct Task {
     id: StringBasedId,
     name: MinLenString<1>,
-    desctription: MinLenString<0>,
+    description: MinLenString<0>,
 }
 
 impl Task {
-    pub fn new(id: StringBasedId, name: MinLenString<1>, desctription: MinLenString<0>) -> Self {
+    pub fn new(id: StringBasedId, name: MinLenString<1>, description: MinLenString<0>) -> Self {
         Self {
             id,
             name,
-            desctription,
+            description,
         }
     }
 
@@ -27,7 +27,7 @@ impl Task {
     }
 
     pub fn description(&self) -> &str {
-        &self.desctription.0
+        &self.description.0
     }
 
     pub fn update_name(&mut self, name: MinLenString<1>) {
@@ -35,6 +35,6 @@ impl Task {
     }
 
     pub fn update_description(&mut self, description: MinLenString<0>) {
-        self.desctription = description
+        self.description = description
     }
 }

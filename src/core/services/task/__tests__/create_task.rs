@@ -18,11 +18,11 @@ impl CreateTaskPort for CreateTaskAdapter {
     ) -> Result<Task, Self::CreateTaskPortError> {
         let id = StringBasedId::parse("1".to_owned()).unwrap();
         let name = name_base.clone();
-        let desctription = description_base.clone();
+        let description = description_base.clone();
 
         // some async logic here :D
 
-        Ok(Task::new(id, name, desctription))
+        Ok(Task::new(id, name, description))
     }
 }
 

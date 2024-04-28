@@ -17,9 +17,9 @@ impl SearchTasksByNamePort for SearchTasksAdapter {
     ) -> Result<Vec<Task>, Self::SearchTasksByNamePortError> {
         let id = StringBasedId::parse("1".to_owned()).unwrap();
         let name = MinLenString::parse("1234".to_owned()).unwrap();
-        let desctription = MinLenString::parse("1234".to_owned()).unwrap();
+        let description = MinLenString::parse("1234".to_owned()).unwrap();
 
-        let task = Task::new(id, name, desctription);
+        let task = Task::new(id, name, description);
         let result = [task];
 
         Ok(result
