@@ -19,8 +19,14 @@ impl StageWindow {
         &self.stages
     }
 
-    pub fn remove(&mut self, stage: &Stage) {
-        self.stages.retain(|s| s != stage);
+    pub fn remove(&mut self, stage_id: &StringBasedId) -> Option<Stage> {
+        let index = self.stages.iter().position(|stage| stage.id() == stage_id);
+
+        if let Some(index) = index {
+            return Some(self.stages.remove(index));
+        }
+
+        None
     }
 
     pub fn has(&self, stage: &Stage) -> bool {
@@ -33,8 +39,21 @@ impl StageWindow {
         from_stage_id: &StringBasedId,
         to_stage_id: &StringBasedId,
     ) {
-        if let Some(stage) = self.stages.iter_mut().find(|s| s.id() == from_stage_id.0) {
-            stage.
+        let from_stage = self.stages.iter_mut().find(|s| s.id() == from_stage_id);
+        let mut task = None;
+
+        if let Some(stage) = from_stage {
+            task = stage.task_window_mut().remove(task_id)
+        }
+
+        if task.is_none() {
+            return;
+        }
+
+        let to_stage = self.stages.iter_mut().find(|s| s.id() == to_stage_id);
+
+        if let Some(stage) = to_stage {
+            stage.task_window_mut().add(task.unwrap())
         }
     }
 }

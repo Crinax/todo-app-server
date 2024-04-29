@@ -18,16 +18,16 @@ impl Task {
         }
     }
 
-    pub fn id(&self) -> &str {
-        &self.id.0
+    pub fn id(&self) -> &StringBasedId {
+        &self.id
     }
 
-    pub fn name(&self) -> &str {
-        &self.name.0
+    pub fn name(&self) -> &MinLenString<1> {
+        &self.name
     }
 
-    pub fn description(&self) -> &str {
-        &self.description.0
+    pub fn description(&self) -> &MinLenString<0> {
+        &self.description
     }
 
     pub fn update_name(&mut self, name: MinLenString<1>) {

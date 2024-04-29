@@ -20,16 +20,20 @@ impl Stage {
         }
     }
 
-    pub fn id(&self) -> &str {
-        &self.id.0
+    pub fn id(&self) -> &StringBasedId {
+        &self.id
     }
 
     pub fn task_window(&self) -> &TaskWindow {
         &self.task_window
     }
 
-    pub fn name(&self) -> &str {
-        &self.name.0
+    pub fn task_window_mut(&mut self) -> &mut TaskWindow {
+        &mut self.task_window
+    }
+
+    pub fn name(&self) -> &MinLenString<1> {
+        &self.name
     }
 
     pub fn add_task(&mut self, task: Task) {
@@ -41,7 +45,7 @@ impl Stage {
     }
 
     pub fn remove_task(&mut self, task: &Task) {
-        self.task_window.remove(task);
+        self.task_window.remove(task.id());
     }
 }
 

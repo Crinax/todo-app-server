@@ -1,7 +1,4 @@
-use crate::core::entities::{
-    rules::{string_based_id::StringBasedId, BusinessRule},
-    task::Task,
-};
+use crate::core::entities::{rules::string_based_id::StringBasedId, task::Task};
 
 #[derive(Clone, Debug)]
 pub struct TaskWindow {
@@ -14,12 +11,7 @@ impl TaskWindow {
     }
 
     pub fn add(&mut self, task: Task) {
-        // TODO: think about how to simplify it
-        // maybe return an StringBasedId ref instead of &str ref
-        // or implement PartialEq<&str> and PartalEq<String> for StringBasedId
-        let id = StringBasedId::parse(task.id().to_string()).unwrap();
-
-        if !self.has(&id) {
+        if !self.has(&task.id()) {
             self.tasks.push(task);
         }
     }
@@ -28,14 +20,20 @@ impl TaskWindow {
         &self.tasks
     }
 
-    pub fn remove(&mut self, task: &Task) {
-        self.tasks.retain(|t| t != task);
+    pub fn remove(&mut self, task_id: &StringBasedId) -> Option<Task> {
+        let index = self.tasks.iter().position(|task| task.id() == task_id);
+
+        if let Some(index) = index {
+            return Some(self.tasks.remove(index));
+        }
+
+        None
     }
 
     pub fn has(&self, task_id: &StringBasedId) -> bool {
         self.tasks
             .iter()
-            .find(|task| task.id() == task_id.0)
+            .find(|task| task.id() == task_id)
             .is_some()
     }
 }
