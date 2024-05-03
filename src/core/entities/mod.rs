@@ -3,3 +3,6 @@ pub mod stage;
 pub mod stage_window;
 pub mod task;
 pub mod task_window;
+
+#[cfg(test)]
+mod __tests__;
