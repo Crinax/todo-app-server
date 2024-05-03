@@ -1,3 +1,5 @@
+use std::str::FromStr;
+
 use super::BusinessRule;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -20,5 +22,13 @@ impl BusinessRule for StringBasedId {
         } else {
             Ok(StringBasedId(input))
         }
+    }
+}
+
+impl FromStr for StringBasedId {
+    type Err = StringBasedIdParseError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        StringBasedId::parse(s.to_owned())
     }
 }

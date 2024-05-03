@@ -1,3 +1,5 @@
+use std::str::FromStr;
+
 use crate::core::entities::rules::BusinessRule;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -20,5 +22,13 @@ impl<const N: usize> BusinessRule for MinLenString<N> {
         } else {
             Ok(MinLenString(input))
         }
+    }
+}
+
+impl<const N: usize> FromStr for MinLenString<N> {
+    type Err = MinLenStringError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        MinLenString::parse(s.to_owned())
     }
 }
