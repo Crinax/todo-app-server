@@ -54,7 +54,7 @@ async fn update_task_description() {
 
     let task = result.unwrap();
 
-    assert_eq!(task.description(), "1234");
+    assert_eq!(task.description(), &"1234".parse().unwrap());
 }
 
 #[tokio::test]
@@ -69,5 +69,5 @@ async fn update_task_name() {
 
     let task = result.unwrap();
 
-    assert_eq!(task.name(), "1234");
+    assert_eq!(task.name(), &"1234".parse().unwrap());
 }

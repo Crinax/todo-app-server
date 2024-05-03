@@ -24,7 +24,7 @@ impl SearchTasksByNamePort for SearchTasksAdapter {
 
         Ok(result
             .iter()
-            .filter(|task| task.name().eq(text.0.as_str()))
+            .filter(|task| task.name().eq(text))
             .cloned()
             .collect())
     }
@@ -42,9 +42,9 @@ async fn search_tasks_by_name_found_task_case() {
 
     let task = result.first().unwrap();
 
-    assert_eq!(task.name(), "1234");
-    assert_eq!(task.id(), "1");
-    assert_eq!(task.description(), "1234");
+    assert_eq!(task.name(), &"1234".parse().unwrap());
+    assert_eq!(task.id(), &"1".parse().unwrap());
+    assert_eq!(task.description(), &"1234".parse().unwrap());
 }
 
 #[tokio::test]

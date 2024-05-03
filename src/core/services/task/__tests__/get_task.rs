@@ -34,7 +34,7 @@ async fn should_get_task() {
 
     let task = task.unwrap();
 
-    assert_eq!(task.id(), "1");
-    assert_eq!(task.name(), "task name");
-    assert_eq!(task.description(), "");
+    assert_eq!(task.id(), &"1".parse().unwrap());
+    assert_eq!(task.name(), &"task name".parse().unwrap());
+    assert_eq!(task.description(), &"".parse().unwrap());
 }

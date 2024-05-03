@@ -37,7 +37,7 @@ async fn create_task_success_case() {
         .await
         .unwrap();
 
-    assert_eq!(result.id(), "1");
-    assert_eq!(result.name(), "1234");
-    assert_eq!(result.description(), "1234");
+    assert_eq!(result.id(), &"1".parse().unwrap());
+    assert_eq!(result.name(), &"1234".parse().unwrap());
+    assert_eq!(result.description(), &"1234".parse().unwrap());
 }
