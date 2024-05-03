@@ -76,3 +76,31 @@ fn task_window_cannot_remove_non_existing_task() {
     assert_eq!(task_window.remove(task_1.id()), None);
     assert_eq!(task_window.tasks(), &HashSet::from([]));
 }
+
+#[test]
+fn task_window_has_task_returns_true_if_task_exists() {
+    let task_1 = Task::new(
+        "1".parse().unwrap(),
+        "task 1".parse().unwrap(),
+        "simple task".parse().unwrap(),
+    );
+
+    let mut task_window = TaskWindow::new();
+
+    task_window.add(task_1.clone());
+
+    assert!(task_window.has(task_1.id()));
+}
+
+#[test]
+fn task_window_has_task_returns_false_if_task_does_not_exist() {
+    let task_1 = Task::new(
+        "1".parse().unwrap(),
+        "task 1".parse().unwrap(),
+        "simple task".parse().unwrap(),
+    );
+
+    let task_window = TaskWindow::new();
+
+    assert!(!task_window.has(task_1.id()));
+}
