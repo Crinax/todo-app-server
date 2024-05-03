@@ -36,10 +36,6 @@ impl Stage {
         &self.task_window
     }
 
-    pub fn task_window_mut(&mut self) -> &mut TaskWindow {
-        &mut self.task_window
-    }
-
     pub fn name(&self) -> &MinLenString<1> {
         &self.name
     }
@@ -52,8 +48,8 @@ impl Stage {
         self.task_window.has(task)
     }
 
-    pub fn remove_task(&mut self, task: &Task) {
-        self.task_window.remove(task.id());
+    pub fn remove_task(&mut self, task_id: &StringBasedId) -> Option<Task> {
+        self.task_window.remove(task_id)
     }
 }
 

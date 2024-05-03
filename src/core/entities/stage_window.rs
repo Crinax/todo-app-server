@@ -54,7 +54,7 @@ impl StageWindow {
         let mut from_stage = from_stage.unwrap();
         let mut to_stage = to_stage.unwrap();
 
-        let task = from_stage.task_window_mut().remove(task_id);
+        let task = from_stage.remove_task(task_id);
 
         if task.is_none() {
             return;
@@ -62,6 +62,6 @@ impl StageWindow {
 
         let task = task.unwrap();
 
-        to_stage.task_window_mut().add(task);
+        to_stage.add_task(task);
     }
 }
