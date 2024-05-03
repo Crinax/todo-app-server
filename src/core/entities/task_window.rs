@@ -1,39 +1,35 @@
+use std::collections::HashSet;
+
 use crate::core::entities::{rules::string_based_id::StringBasedId, task::Task};
 
 #[derive(Clone, Debug)]
 pub struct TaskWindow {
-    tasks: Vec<Task>,
+    tasks: HashSet<Task>,
 }
 
 impl TaskWindow {
     pub fn new() -> Self {
-        Self { tasks: vec![] }
-    }
-
-    pub fn add(&mut self, task: Task) {
-        if !self.has(&task.id()) {
-            self.tasks.push(task);
+        Self {
+            tasks: HashSet::new(),
         }
     }
 
-    pub fn tasks(&self) -> &[Task] {
+    pub fn add(&mut self, task: Task) {
+        self.tasks.insert(task);
+    }
+
+    pub fn tasks(&self) -> &HashSet<Task> {
         &self.tasks
     }
 
     pub fn remove(&mut self, task_id: &StringBasedId) -> Option<Task> {
-        let index = self.tasks.iter().position(|task| task.id() == task_id);
+        let task = self.tasks.iter().find(|task| task.id() == task_id);
+        let task = task?.clone();
 
-        if let Some(index) = index {
-            return Some(self.tasks.remove(index));
-        }
-
-        None
+        self.tasks.take(&task)
     }
 
     pub fn has(&self, task_id: &StringBasedId) -> bool {
-        self.tasks
-            .iter()
-            .find(|task| task.id() == task_id)
-            .is_some()
+        self.tasks.iter().any(|task| task.id() == task_id)
     }
 }

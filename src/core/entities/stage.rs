@@ -1,3 +1,5 @@
+use std::hash::Hash;
+
 use crate::core::entities::{
     rules::{min_len_string::MinLenString, string_based_id::StringBasedId},
     task::Task,
@@ -9,6 +11,12 @@ pub struct Stage {
     id: StringBasedId,
     name: MinLenString<1>,
     task_window: TaskWindow,
+}
+
+impl Hash for Stage {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.id.hash(state);
+    }
 }
 
 impl Stage {

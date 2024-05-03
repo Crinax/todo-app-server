@@ -1,3 +1,5 @@
+use std::hash::Hash;
+
 use crate::core::entities::rules::min_len_string::MinLenString;
 
 use super::rules::string_based_id::StringBasedId;
@@ -7,6 +9,12 @@ pub struct Task {
     id: StringBasedId,
     name: MinLenString<1>,
     description: MinLenString<0>,
+}
+
+impl Hash for Task {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.id.hash(state);
+    }
 }
 
 impl Task {
