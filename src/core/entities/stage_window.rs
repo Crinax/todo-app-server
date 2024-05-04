@@ -63,5 +63,8 @@ impl StageWindow {
         let task = task.unwrap();
 
         to_stage.add_task(task);
+
+        self.add(from_stage);
+        self.add(to_stage);
     }
 }
