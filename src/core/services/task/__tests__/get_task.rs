@@ -2,6 +2,7 @@ use crate::core::{
     entities::{
         rules::{min_len_string::MinLenString, string_based_id::StringBasedId, BusinessRule},
         task::Task,
+        window::Id,
     },
     ports::{primary::task::queries::GetTaskByIdQuery, secondary::task::LoadTaskPort},
     services::task::get_task::GetTaskService,
