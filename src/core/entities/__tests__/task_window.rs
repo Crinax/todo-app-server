@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-
 use crate::core::entities::{task::Task, task_window::TaskWindow, window::Id};
 
 #[test]

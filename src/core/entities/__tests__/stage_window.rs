@@ -1,9 +1,4 @@
-use crate::core::entities::{
-    stage::Stage,
-    stage_window::StageWindow,
-    task::Task,
-    window::{Id, Window},
-};
+use crate::core::entities::{stage::Stage, stage_window::StageWindow, task::Task, window::Id};
 
 #[test]
 fn stage_window_can_add_stage() {
