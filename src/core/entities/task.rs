@@ -1,6 +1,6 @@
 use std::hash::Hash;
 
-use crate::core::entities::rules::min_len_string::MinLenString;
+use crate::core::entities::{rules::min_len_string::MinLenString, window::Id};
 
 use super::rules::string_based_id::StringBasedId;
 
@@ -26,10 +26,6 @@ impl Task {
         }
     }
 
-    pub fn id(&self) -> &StringBasedId {
-        &self.id
-    }
-
     pub fn name(&self) -> &MinLenString<1> {
         &self.name
     }
@@ -44,6 +40,12 @@ impl Task {
 
     pub fn update_description(&mut self, description: MinLenString<0>) {
         self.description = description
+    }
+}
+
+impl Id for Task {
+    fn id(&self) -> &StringBasedId {
+        &self.id
     }
 }
 

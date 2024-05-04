@@ -1,37 +1,30 @@
-use std::collections::HashSet;
-
-use crate::core::entities::{rules::string_based_id::StringBasedId, stage::Stage};
+use crate::core::entities::{rules::string_based_id::StringBasedId, stage::Stage, window::Window};
 
 pub struct StageWindow {
-    stages: HashSet<Stage>,
+    window: Window<Stage>,
 }
 
 impl StageWindow {
     pub fn new() -> Self {
         Self {
-            stages: HashSet::new(),
+            window: Window::new(),
         }
     }
 
     pub fn add(&mut self, stage: Stage) {
-        if !self.has(&stage) {
-            self.stages.insert(stage);
-        }
+        self.window.add(stage);
     }
 
-    pub fn stages(&self) -> &HashSet<Stage> {
-        &self.stages
+    pub fn stages(&self) -> &[Stage] {
+        self.window.collection()
     }
 
     pub fn remove(&mut self, stage_id: &StringBasedId) -> Option<Stage> {
-        let stage = self.stages.iter().find(|stage| stage.id() == stage_id);
-        let stage = stage?.clone();
-
-        self.stages.take(&stage)
+        self.window.remove(stage_id)
     }
 
-    pub fn has(&self, stage: &Stage) -> bool {
-        self.stages.contains(stage)
+    pub fn has(&self, stage_id: &StringBasedId) -> bool {
+        self.window.has(stage_id)
     }
 
     pub fn move_task(
@@ -41,22 +34,26 @@ impl StageWindow {
         to_stage_id: &StringBasedId,
     ) {
         let from_stage = self.remove(from_stage_id);
-        let to_stage = self.remove(to_stage_id);
 
         if from_stage.is_none() {
             return;
         }
 
+        let mut from_stage = from_stage.unwrap();
+        let to_stage = self.remove(to_stage_id);
+
         if to_stage.is_none() {
+            self.add(from_stage);
             return;
         }
 
-        let mut from_stage = from_stage.unwrap();
         let mut to_stage = to_stage.unwrap();
 
         let task = from_stage.remove_task(task_id);
 
         if task.is_none() {
+            self.add(to_stage);
+            self.add(from_stage);
             return;
         }
 

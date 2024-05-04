@@ -4,6 +4,7 @@ use crate::core::entities::{
     rules::{min_len_string::MinLenString, string_based_id::StringBasedId},
     task::Task,
     task_window::TaskWindow,
+    window::Id,
 };
 
 #[derive(Debug, Clone)]
@@ -28,10 +29,6 @@ impl Stage {
         }
     }
 
-    pub fn id(&self) -> &StringBasedId {
-        &self.id
-    }
-
     pub fn task_window(&self) -> &TaskWindow {
         &self.task_window
     }
@@ -50,6 +47,12 @@ impl Stage {
 
     pub fn remove_task(&mut self, task_id: &StringBasedId) -> Option<Task> {
         self.task_window.remove(task_id)
+    }
+}
+
+impl Id for Stage {
+    fn id(&self) -> &StringBasedId {
+        &self.id
     }
 }
 
