@@ -6,13 +6,8 @@ pub trait Id {
     fn id(&self) -> &StringBasedId;
 }
 
-pub trait Order<T: Eq + PartialEq + PartialOrd + Ord> {
+pub trait Order<T: Ord> {
     fn order(&self) -> T;
-}
-
-pub trait SortableWindow<T: Id + Order<O>, O: Eq + PartialEq + PartialOrd + Ord> {
-    fn sort_by_key<F: Fn(&T) -> O>(&mut self, f: F);
-    fn sort<F: FnMut(&T, &T) -> Ordering>(&mut self, f: F);
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -66,14 +61,12 @@ impl<T: Id> Window<T> {
     pub fn get_mut(&mut self, id: &StringBasedId) -> Option<&mut T> {
         self.collection.iter_mut().find(|item| item.id() == id)
     }
-}
 
-impl<T: Id + Order<O>, O: Eq + PartialEq + PartialOrd + Ord> SortableWindow<T, O> for Window<T> {
-    fn sort_by_key<F: Fn(&T) -> O>(&mut self, f: F) {
+    pub fn sort_by_key<F: FnMut(&T) -> O, O: Ord>(&mut self, f: F) {
         self.collection.sort_by_key(f);
     }
 
-    fn sort<F: FnMut(&T, &T) -> Ordering>(&mut self, f: F) {
+    pub fn sort<F: FnMut(&T, &T) -> Ordering>(&mut self, f: F) {
         self.collection.sort_by(f);
     }
 }
