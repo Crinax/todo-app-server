@@ -8,7 +8,7 @@ pub enum MinLenStringError {
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub struct MinLenString<const N: usize>(pub String);
+pub struct MinLenString<const N: usize>(String);
 
 impl<const N: usize> BusinessRule for MinLenString<N> {
     type Error = MinLenStringError;
@@ -22,6 +22,10 @@ impl<const N: usize> BusinessRule for MinLenString<N> {
         } else {
             Ok(MinLenString(input))
         }
+    }
+
+    fn value(&self) -> &str {
+        &self.0
     }
 }
 

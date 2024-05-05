@@ -8,7 +8,7 @@ pub enum StringBasedIdParseError {
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
-pub struct StringBasedId(pub String);
+pub struct StringBasedId(String);
 
 impl BusinessRule for StringBasedId {
     type Error = StringBasedIdParseError;
@@ -22,6 +22,10 @@ impl BusinessRule for StringBasedId {
         } else {
             Ok(StringBasedId(input))
         }
+    }
+
+    fn value(&self) -> &str {
+        &self.0
     }
 }
 
