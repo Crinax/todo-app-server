@@ -1,3 +1,4 @@
+pub mod stage;
 pub mod task;
 
 #[derive(Debug, Clone)]
