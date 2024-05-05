@@ -1,6 +1,6 @@
 use crate::core::{
     entities::task::Task,
-    ports::primary::task::commands::{
+    ports::primary::commands::task::{
         create_task::CreateTaskCommand, update_task_description::UpdateTaskDescriptionCommand,
         update_task_name::UpdateTaskNameCommand,
     },

@@ -4,7 +4,7 @@ use crate::core::{
         task::Task,
         window::Id,
     },
-    ports::{primary::task::queries::GetTaskByIdQuery, secondary::task::LoadTaskPort},
+    ports::{primary::queries::task::GetTaskByIdQuery, secondary::task::LoadTaskPort},
     services::task::get_task::GetTaskService,
 };
 

@@ -1,7 +1,9 @@
 use crate::core::{
     entities::task::Task,
     ports::{
-        primary::task::{commands::create_task::CreateTaskCommand, use_cases::CreateTaskUseCase},
+        primary::{
+            commands::task::create_task::CreateTaskCommand, use_cases::task::CreateTaskUseCase,
+        },
         secondary::task::CreateTaskPort,
     },
 };

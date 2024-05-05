@@ -1,7 +1,7 @@
 use crate::core::{
     entities::{rules::min_len_string::MinLenString, task::Task, window::Window},
     ports::{
-        primary::task::queries::SearchTasksByNameQuery, secondary::task::SearchTasksByNamePort,
+        primary::queries::task::SearchTasksByNameQuery, secondary::task::SearchTasksByNamePort,
     },
 };
 

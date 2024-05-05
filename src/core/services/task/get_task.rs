@@ -1,6 +1,6 @@
 use crate::core::{
     entities::{rules::string_based_id::StringBasedId, task::Task},
-    ports::{primary::task::queries::GetTaskByIdQuery, secondary::task::LoadTaskPort},
+    ports::{primary::queries::task::GetTaskByIdQuery, secondary::task::LoadTaskPort},
 };
 
 pub struct GetTaskService<T: LoadTaskPort> {

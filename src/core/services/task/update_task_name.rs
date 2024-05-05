@@ -1,8 +1,9 @@
 use crate::core::{
     entities::task::Task,
     ports::{
-        primary::task::{
-            commands::update_task_name::UpdateTaskNameCommand, use_cases::UpdateTaskNameUseCase,
+        primary::{
+            commands::task::update_task_name::UpdateTaskNameCommand,
+            use_cases::task::UpdateTaskNameUseCase,
         },
         secondary::task::{LoadTaskPort, SaveTaskPort},
     },

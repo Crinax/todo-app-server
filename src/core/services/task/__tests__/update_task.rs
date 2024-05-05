@@ -4,12 +4,12 @@ use crate::core::{
         task::Task,
     },
     ports::{
-        primary::task::{
-            commands::{
+        primary::{
+            commands::task::{
                 update_task_description::UpdateTaskDescriptionCommand,
                 update_task_name::UpdateTaskNameCommand,
             },
-            use_cases::{UpdateTaskDescriptionUseCase, UpdateTaskNameUseCase},
+            use_cases::task::{UpdateTaskDescriptionUseCase, UpdateTaskNameUseCase},
         },
         secondary::task::{LoadTaskPort, SaveTaskPort},
     },

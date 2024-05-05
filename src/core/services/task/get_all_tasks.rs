@@ -1,6 +1,6 @@
 use crate::core::{
     entities::{task::Task, window::Window},
-    ports::{primary::task::queries::GetAllTasksQuery, secondary::task::LoadManyTasksPort},
+    ports::{primary::queries::task::GetAllTasksQuery, secondary::task::LoadManyTasksPort},
 };
 
 pub struct GetAllTasksService<T: LoadManyTasksPort> {
