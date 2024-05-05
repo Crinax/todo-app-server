@@ -1,12 +1,13 @@
 use crate::core::entities::{
     rules::{min_len_string::MinLenString, string_based_id::StringBasedId},
     task::Task,
+    window::Window,
 };
 
 pub trait LoadManyTasksPort {
     type LoadManyTasksPortError;
 
-    async fn load_many_tasks(&self) -> Result<Vec<Task>, Self::LoadManyTasksPortError>;
+    async fn load_many_tasks(&self) -> Result<Window<Task>, Self::LoadManyTasksPortError>;
 }
 
 pub trait LoadTaskPort {
@@ -21,7 +22,7 @@ pub trait SearchTasksByNamePort {
     async fn search_tasks_by_name(
         &self,
         name: &MinLenString<1>,
-    ) -> Result<Vec<Task>, Self::SearchTasksByNamePortError>;
+    ) -> Result<Window<Task>, Self::SearchTasksByNamePortError>;
 }
 
 pub trait CreateTaskPort {

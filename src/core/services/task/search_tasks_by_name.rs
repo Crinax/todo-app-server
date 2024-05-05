@@ -1,5 +1,5 @@
 use crate::core::{
-    entities::{rules::min_len_string::MinLenString, task::Task},
+    entities::{rules::min_len_string::MinLenString, task::Task, window::Window},
     ports::{
         primary::task::queries::SearchTasksByNameQuery, secondary::task::SearchTasksByNamePort,
     },
@@ -21,7 +21,7 @@ impl<T: SearchTasksByNamePort> SearchTasksByNameQuery for SearchTasksByNameServi
     async fn search_tasks_by_name(
         &self,
         name: &MinLenString<1>,
-    ) -> Result<Vec<Task>, Self::SearchTasksByNameQueryError> {
+    ) -> Result<Window<Task>, Self::SearchTasksByNameQueryError> {
         self.port.search_tasks_by_name(name).await
     }
 }

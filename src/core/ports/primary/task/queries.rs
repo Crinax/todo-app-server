@@ -1,12 +1,13 @@
 use crate::core::entities::{
     rules::{min_len_string::MinLenString, string_based_id::StringBasedId},
     task::Task,
+    window::Window,
 };
 
 pub trait GetAllTasksQuery {
     type GetAllTasksQueryError;
 
-    async fn get_all_tasks(&self) -> Result<Vec<Task>, Self::GetAllTasksQueryError>;
+    async fn get_all_tasks(&self) -> Result<Window<Task>, Self::GetAllTasksQueryError>;
 }
 
 pub trait GetTaskByIdQuery {
@@ -22,5 +23,5 @@ pub trait SearchTasksByNameQuery {
     async fn search_tasks_by_name(
         &self,
         name: &MinLenString<1>,
-    ) -> Result<Vec<Task>, Self::SearchTasksByNameQueryError>;
+    ) -> Result<Window<Task>, Self::SearchTasksByNameQueryError>;
 }

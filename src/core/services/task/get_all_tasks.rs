@@ -1,5 +1,5 @@
 use crate::core::{
-    entities::task::Task,
+    entities::{task::Task, window::Window},
     ports::{primary::task::queries::GetAllTasksQuery, secondary::task::LoadManyTasksPort},
 };
 
@@ -16,7 +16,7 @@ impl<T: LoadManyTasksPort> GetAllTasksService<T> {
 impl<T: LoadManyTasksPort> GetAllTasksQuery for GetAllTasksService<T> {
     type GetAllTasksQueryError = T::LoadManyTasksPortError;
 
-    async fn get_all_tasks(&self) -> Result<Vec<Task>, Self::GetAllTasksQueryError> {
+    async fn get_all_tasks(&self) -> Result<Window<Task>, Self::GetAllTasksQueryError> {
         self.port.load_many_tasks().await
     }
 }
