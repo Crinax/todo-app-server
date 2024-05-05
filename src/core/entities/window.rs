@@ -29,6 +29,14 @@ impl<T: Id + Clone, const N: usize> From<[T; N]> for Window<T> {
     }
 }
 
+impl<T: Id> FromIterator<T> for Window<T> {
+    fn from_iter<E: IntoIterator<Item = T>>(iter: E) -> Self {
+        Self {
+            collection: iter.into_iter().collect(),
+        }
+    }
+}
+
 impl<T: Id> Window<T> {
     pub fn new() -> Self {
         Self { collection: vec![] }
@@ -68,5 +76,13 @@ impl<T: Id> Window<T> {
 
     pub fn sort<F: FnMut(&T, &T) -> Ordering>(&mut self, f: F) {
         self.collection.sort_by(f);
+    }
+
+    pub fn len(&self) -> usize {
+        self.collection.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.collection.is_empty()
     }
 }
