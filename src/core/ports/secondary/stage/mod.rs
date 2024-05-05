@@ -13,10 +13,8 @@ pub trait LoadManyStagesPort {
 pub trait LoadStagePort {
     type LoadStagePortError;
 
-    async fn load_stage(
-        &self,
-        stage_id: &StringBasedId,
-    ) -> Result<StageWindow, Self::LoadStagePortError>;
+    async fn load_stage(&self, stage_id: &StringBasedId)
+        -> Result<Stage, Self::LoadStagePortError>;
 }
 
 pub trait CreateStagePort {
