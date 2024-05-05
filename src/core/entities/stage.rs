@@ -48,6 +48,10 @@ impl Stage {
     pub fn remove_task(&mut self, task_id: &StringBasedId) -> Option<Task> {
         self.task_window.remove(task_id)
     }
+
+    pub fn update_name(&mut self, name: MinLenString<1>) {
+        self.name = name;
+    }
 }
 
 impl Id for Stage {
