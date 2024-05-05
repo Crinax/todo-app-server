@@ -2,7 +2,7 @@ use crate::core::{
     entities::{
         rules::{min_len_string::MinLenString, string_based_id::StringBasedId, BusinessRule},
         task::Task,
-        window::Id,
+        window::{Id, Window},
     },
     ports::secondary::task::SearchTasksByNamePort,
 };
@@ -15,7 +15,7 @@ impl SearchTasksByNamePort for SearchTasksAdapter {
     async fn search_tasks_by_name(
         &self,
         text: &MinLenString<1>,
-    ) -> Result<Vec<Task>, Self::SearchTasksByNamePortError> {
+    ) -> Result<Window<Task>, Self::SearchTasksByNamePortError> {
         let id = StringBasedId::parse("1".to_owned()).unwrap();
         let name = MinLenString::parse("1234".to_owned()).unwrap();
         let description = MinLenString::parse("1234".to_owned()).unwrap();
@@ -41,7 +41,7 @@ async fn search_tasks_by_name_found_task_case() {
 
     assert_eq!(result.len(), 1);
 
-    let task = result.first().unwrap();
+    let task = result.collection().first().unwrap();
 
     assert_eq!(task.name(), &"1234".parse().unwrap());
     assert_eq!(task.id(), &"1".parse().unwrap());
