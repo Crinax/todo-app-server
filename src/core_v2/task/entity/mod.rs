@@ -1,7 +1,8 @@
-use crate::core_v2::common::rules::MinLenString;
+use crate::core_v2::common::rules::{EntityId, MinLenString};
 
 pub struct Task {
-    id: MinLenString<1>,
+    id: EntityId,
     title: MinLenString<1>,
     description: MinLenString<0>,
+    column_id: EntityId,
 }
