@@ -3,8 +3,8 @@ pub mod id;
 pub mod order;
 
 pub use fixed_string::MinLenString;
-pub use id::Id;
-pub use order::Order;
+pub use id::EntityId;
+pub use order::EntityOrder;
 
 pub trait BusinessRule {
     type Error;

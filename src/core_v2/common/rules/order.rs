@@ -1,1 +1,1 @@
-pub type Order = i128;
+pub type EntityOrder = i128;
