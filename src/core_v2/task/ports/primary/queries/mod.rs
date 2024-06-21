@@ -6,7 +6,7 @@ pub trait GetTaskQuery {
     async fn get_task(&self, id: EntityId) -> Result<Task, Self::Err>;
 }
 
-pub trait GetAllTaskInColumnQuery {
+pub trait GetTasksInColumnQuery {
     type Err;
 
     async fn get_task_by_column(&self, column_id: EntityId) -> Result<Vec<Task>, Self::Err>;
