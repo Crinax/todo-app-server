@@ -11,3 +11,9 @@ pub trait LoadTasksByColumn {
 
     async fn load_task_by_column(&self, column_id: EntityId) -> Result<Vec<Task>, Self::Err>;
 }
+
+pub trait SaveTaskPort {
+    type Err;
+
+    async fn save_task(&self, task: Task) -> Result<Task, Self::Err>;
+}

@@ -10,6 +10,12 @@ pub struct GetTaskService<T: LoadTaskPort> {
     port: T,
 }
 
+impl<T: LoadTaskPort> GetTaskService<T> {
+    pub fn new(port: T) -> Self {
+        Self { port }
+    }
+}
+
 impl<T: LoadTaskPort> GetTaskQuery for GetTaskService<T> {
     type Err = T::Err;
 

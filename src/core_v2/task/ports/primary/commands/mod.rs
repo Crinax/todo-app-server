@@ -6,15 +6,15 @@ pub struct UpdateTaskNameCommand {
 }
 
 impl UpdateTaskNameCommand {
-    fn new(id: EntityId, name: MinLenString<1>) -> Self {
+    pub fn new(id: EntityId, name: MinLenString<1>) -> Self {
         Self { id, name }
     }
 
-    fn id(&self) -> &EntityId {
+    pub fn id(&self) -> &EntityId {
         &self.id
     }
 
-    fn name(&self) -> &MinLenString<1> {
+    pub fn name(&self) -> &MinLenString<1> {
         &self.name
     }
 }

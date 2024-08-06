@@ -6,6 +6,12 @@ pub struct GetTaskByColumn<T: LoadTasksByColumn> {
     port: T,
 }
 
+impl<T: LoadTasksByColumn> GetTaskByColumn<T> {
+    pub fn new(port: T) -> Self {
+        Self { port }
+    }
+}
+
 impl<T: LoadTasksByColumn> GetTasksInColumnQuery for GetTaskByColumn<T> {
     type Err = T::Err;
 

@@ -14,7 +14,7 @@ pub struct Task {
 }
 
 impl Task {
-    fn new(
+    pub fn new(
         id: EntityId,
         title: TaskTitle,
         description: TaskDescription,
@@ -28,23 +28,23 @@ impl Task {
         }
     }
 
-    fn id(&self) -> &EntityId {
+    pub fn id(&self) -> &EntityId {
         &self.id
     }
 
-    fn title(&self) -> &TaskTitle {
+    pub fn title(&self) -> &TaskTitle {
         &self.title
     }
 
-    fn description(&self) -> &TaskDescription {
+    pub fn description(&self) -> &TaskDescription {
         &self.description
     }
 
-    fn column_id(&self) -> &EntityId {
+    pub fn column_id(&self) -> &EntityId {
         &self.column_id
     }
 
-    fn update(
+    pub fn update(
         self,
         title: Option<TaskTitle>,
         description: Option<TaskDescription>,
