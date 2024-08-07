@@ -1,5 +1,5 @@
 use crate::core_v2::task::ports::{
-    primary::queries::GetTasksInColumnQuery, secondary::ports::LoadTasksByColumn,
+    primary::queries::GetTasksInColumnQuery, secondary::LoadTasksByColumn,
 };
 
 pub struct GetTaskByColumn<T: LoadTasksByColumn> {
@@ -15,9 +15,9 @@ impl<T: LoadTasksByColumn> GetTaskByColumn<T> {
 impl<T: LoadTasksByColumn> GetTasksInColumnQuery for GetTaskByColumn<T> {
     type Err = T::Err;
 
-    async fn get_task_by_column(
+    async fn get_tasks_by_column(
         &self,
-        column_id: crate::core_v2::common::rules::EntityId,
+        column_id: &crate::core_v2::common::rules::EntityId,
     ) -> Result<Vec<crate::core_v2::task::entity::Task>, Self::Err> {
         self.port.load_task_by_column(column_id).await
     }

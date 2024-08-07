@@ -2,7 +2,7 @@ use crate::core_v2::{
     common::rules::EntityId,
     task::{
         entity::Task,
-        ports::{primary::queries::GetTaskQuery, secondary::ports::LoadTaskPort},
+        ports::{primary::queries::GetTaskQuery, secondary::LoadTaskPort},
     },
 };
 
@@ -19,7 +19,7 @@ impl<T: LoadTaskPort> GetTaskService<T> {
 impl<T: LoadTaskPort> GetTaskQuery for GetTaskService<T> {
     type Err = T::Err;
 
-    async fn get_task(&self, id: EntityId) -> Result<Task, Self::Err> {
+    async fn get_task(&self, id: &EntityId) -> Result<Task, Self::Err> {
         self.port.load_task(id).await
     }
 }

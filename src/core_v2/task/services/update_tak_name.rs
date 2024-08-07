@@ -2,7 +2,7 @@ use crate::core_v2::task::{
     entity::Task,
     ports::{
         primary::{commands::UpdateTaskNameCommand, use_cases::UpdateTaskNameUseCase},
-        secondary::ports::{LoadTaskPort, SaveTaskPort},
+        secondary::{LoadTaskPort, SaveTaskPort},
     },
 };
 
@@ -20,6 +20,7 @@ impl<S: SaveTaskPort, L: LoadTaskPort> UpdateTaskNameService<S, L> {
     }
 }
 
+#[derive(Debug)]
 pub enum UpdateTaskNameUseCaseErr<S: SaveTaskPort, L: LoadTaskPort> {
     SaveErr(S::Err),
     LoadErr(L::Err),
@@ -31,7 +32,7 @@ impl<S: SaveTaskPort, L: LoadTaskPort> UpdateTaskNameUseCase for UpdateTaskNameS
     async fn update_name(&self, command: UpdateTaskNameCommand) -> Result<Task, Self::Err> {
         let task = self
             .load_port
-            .load_task(command.id().clone())
+            .load_task(command.id())
             .await
             .map_err(|e| UpdateTaskNameUseCaseErr::LoadErr(e))?;
 
