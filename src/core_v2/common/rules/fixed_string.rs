@@ -1,6 +1,9 @@
 use std::str::FromStr;
 
-use crate::{common::{AsInner, IntoInner}, core_v2::common::rules::BusinessRule};
+use crate::{
+    common::traits::{AsInner, IntoInner},
+    core_v2::common::rules::BusinessRule,
+};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MinLenStringError {
