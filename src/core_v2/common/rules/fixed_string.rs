@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use crate::core_v2::common::rules::BusinessRule;
+use crate::{common::{AsInner, IntoInner}, core_v2::common::rules::BusinessRule};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MinLenStringError {
@@ -26,6 +26,18 @@ impl<const N: usize> BusinessRule for MinLenString<N> {
 
     fn value(&self) -> &str {
         &self.0
+    }
+}
+
+impl<const N: usize> IntoInner<String> for MinLenString<N> {
+    fn into_inner(self) -> String {
+        self.0
+    }
+}
+
+impl<const N: usize> AsInner<String> for MinLenString<N> {
+    fn as_inner(&self) -> String {
+        self.0.clone()
     }
 }
 
