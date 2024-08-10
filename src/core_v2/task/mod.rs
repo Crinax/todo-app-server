@@ -1,6 +1,0 @@
-pub mod entity;
-pub mod ports;
-pub mod services;
-
-#[cfg(test)]
-pub mod __tests__;

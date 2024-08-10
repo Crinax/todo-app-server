@@ -1,6 +1,6 @@
+mod application;
 mod core;
-mod core_v2;
-mod common;
+mod infrastructure;
 
 fn main() {
     println!("Hello, world!");
