@@ -2,6 +2,7 @@ use crate::core::common::rules::Rule;
 
 pub struct TaskTitle(String);
 
+#[derive(Debug)]
 pub enum TaskTitleRuleErr {
     Empty,
 }

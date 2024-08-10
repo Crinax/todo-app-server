@@ -22,6 +22,7 @@ pub struct GetTaskStruct {
     pub title: String,
 }
 
+#[derive(Debug)]
 pub enum GetTaskError<T> {
     ParseId,
     Load(T),

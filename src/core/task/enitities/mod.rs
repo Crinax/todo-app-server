@@ -9,6 +9,10 @@ pub struct Task {
 }
 
 impl Task {
+    pub fn new(id: TaskId, order: TaskOrder, title: TaskTitle) -> Self {
+        Self { id, order, title }
+    }
+
     pub fn title(&self) -> &str {
         self.title.inner_ref()
     }
