@@ -12,6 +12,10 @@ impl Task {
     pub fn title(&self) -> &str {
         self.title.inner_ref()
     }
+
+    pub fn update_title(&mut self, title: TaskTitle) -> () {
+        self.title = title;
+    }
 }
 
 impl Id for Task {

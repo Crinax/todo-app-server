@@ -7,12 +7,12 @@ use crate::core::{
 };
 
 pub struct GetTaskService<T: LoadTaskPort> {
-    port: T,
+    adapter: T,
 }
 
 impl<T: LoadTaskPort> GetTaskService<T> {
-    pub fn new(port: T) -> Self {
-        Self { port }
+    pub fn new(adapter: T) -> Self {
+        Self { adapter }
     }
 }
 
@@ -34,7 +34,11 @@ impl<T: LoadTaskPort> GetTaskQuery for GetTaskService<T> {
     async fn get_task(&self, id: String) -> Result<Self::Res, Self::Err> {
         let task_id = TaskId::apply(id).map_err(|_| GetTaskError::ParseId)?;
 
-        let task = self.port.load(task_id).await.map_err(GetTaskError::Load)?;
+        let task = self
+            .adapter
+            .load(task_id)
+            .await
+            .map_err(GetTaskError::Load)?;
 
         Ok(GetTaskStruct {
             id: task.id().to_string(),
