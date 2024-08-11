@@ -1,5 +1,8 @@
 use crate::core::{
-    common::rules::{Id, Order, Rule},
+    common::{
+        rules::{Id, Order, Rule},
+        AsShared,
+    },
     task::{
         ports::{primary::queries::GetTaskQuery, secondary::loaders::LoadTaskPort},
         rules::TaskId,
@@ -42,9 +45,9 @@ impl<T: LoadTaskPort> GetTaskQuery for GetTaskService<T> {
             .map_err(GetTaskError::Load)?;
 
         Ok(GetTaskStruct {
-            id: task.id().to_string(),
+            id: task.id().to_owned(),
             order: task.order(),
-            title: task.title().to_string(),
+            title: task.title().to_owned(),
         })
     }
 }

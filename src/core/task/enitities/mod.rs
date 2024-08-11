@@ -1,4 +1,13 @@
-use crate::core::common::rules::{Id, MutableOrder, Order, Rule};
+use std::{
+    cell::RefCell,
+    rc::Rc,
+    sync::{Arc, Mutex},
+};
+
+use crate::core::common::{
+    rules::{Id, MutableOrder, Order, Rule},
+    AsShared,
+};
 
 use super::rules::{TaskId, TaskOrder, TaskTitle};
 
@@ -39,5 +48,15 @@ impl MutableOrder for Task {
 
     fn set_order(&mut self, order: i32) -> Result<(), Self::Err> {
         self.order.set_order(order)
+    }
+}
+
+impl AsShared for Task {
+    fn as_shared(self) -> Rc<RefCell<Self>> {
+        Rc::new(RefCell::new(self))
+    }
+
+    fn as_atomic_shared(self) -> Arc<Mutex<Self>> {
+        Arc::new(Mutex::new(self))
     }
 }
