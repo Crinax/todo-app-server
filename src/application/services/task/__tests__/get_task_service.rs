@@ -29,6 +29,19 @@ async fn can_get_task_successfully() {
 }
 
 #[tokio::test]
+async fn failed_to_parse_id() {
+    let service = GetTaskService::new(SuccessLoadTaskAdapter {});
+
+    let task = service.get_task("".to_owned()).await;
+
+    assert!(task.is_err());
+
+    let task = task.unwrap_err();
+
+    assert_eq!(task, GetTaskError::ParseId);
+}
+
+#[tokio::test]
 async fn find_task_with_error() {
     let service = GetTaskService::new(MaybeNotFoundLoadTaskAdapter(vec![
         Task::new(

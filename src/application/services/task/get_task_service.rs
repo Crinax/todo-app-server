@@ -20,7 +20,7 @@ impl<T: LoadTaskPort> GetTaskService<T> {
 }
 
 #[derive(Debug, Clone)]
-pub struct GetTaskStruct {
+pub struct GetTaskResponse {
     pub id: String,
     pub order: i32,
     pub title: String,
@@ -34,7 +34,7 @@ pub enum GetTaskError<T> {
 
 impl<T: LoadTaskPort> GetTaskQuery for GetTaskService<T> {
     type Err = GetTaskError<T::Err>;
-    type Res = GetTaskStruct;
+    type Res = GetTaskResponse;
 
     async fn get_task(&self, id: String) -> Result<Self::Res, Self::Err> {
         let task_id = TaskId::apply(id).map_err(|_| GetTaskError::ParseId)?;
@@ -45,7 +45,7 @@ impl<T: LoadTaskPort> GetTaskQuery for GetTaskService<T> {
             .await
             .map_err(GetTaskError::Load)?;
 
-        Ok(GetTaskStruct {
+        Ok(GetTaskResponse {
             id: task.id().to_owned(),
             order: task.order(),
             title: task.title().to_owned(),

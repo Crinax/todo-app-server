@@ -1,7 +1,6 @@
 use crate::core::{
-    common::rules::Rule,
+    common::rules::{Id, Rule},
     task::{
-        enitities::Task,
         ports::{
             primary::{commands::UpdateTaskTitleCommand, use_cases::UpdateTaskTitleUseCase},
             secondary::{loaders::LoadTaskPort, UpdateTaskPort},
@@ -24,6 +23,13 @@ impl<S: UpdateTaskPort, L: LoadTaskPort> UpdateTaskService<S, L> {
     }
 }
 
+#[derive(Debug, Clone)]
+pub struct UpdateTaskTitleResponse {
+    pub id: String,
+    pub title: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum UpdateTaskTitleError<LoadErr, SaveErr> {
     ParseId,
     ParseTitle,
@@ -32,9 +38,10 @@ pub enum UpdateTaskTitleError<LoadErr, SaveErr> {
 }
 
 impl<S: UpdateTaskPort, L: LoadTaskPort> UpdateTaskTitleUseCase for UpdateTaskService<S, L> {
+    type Res = UpdateTaskTitleResponse;
     type Err = UpdateTaskTitleError<L::Err, S::Err>;
 
-    async fn update_title(&self, command: UpdateTaskTitleCommand) -> Result<Task, Self::Err> {
+    async fn update_title(&self, command: UpdateTaskTitleCommand) -> Result<Self::Res, Self::Err> {
         let task_id = TaskId::apply(command.id().to_owned()).map_err(|_| Self::Err::ParseId)?;
         let task_title =
             TaskTitle::apply(command.title().to_owned()).map_err(|_| Self::Err::ParseTitle)?;
@@ -52,6 +59,9 @@ impl<S: UpdateTaskPort, L: LoadTaskPort> UpdateTaskTitleUseCase for UpdateTaskSe
             .await
             .map_err(|err| Self::Err::Save(err))?;
 
-        Ok(task)
+        Ok(UpdateTaskTitleResponse {
+            id: task.id().to_owned(),
+            title: task.title().to_owned(),
+        })
     }
 }
