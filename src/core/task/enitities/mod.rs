@@ -11,6 +11,7 @@ use crate::core::common::{
 
 use super::rules::{TaskId, TaskOrder, TaskTitle};
 
+#[derive(Debug, Clone)]
 pub struct Task {
     id: TaskId,
     order: TaskOrder,

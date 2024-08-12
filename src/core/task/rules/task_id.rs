@@ -1,5 +1,6 @@
 use crate::core::common::rules::{Id, Rule};
 
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TaskId(String);
 
 impl Rule<String> for TaskId {

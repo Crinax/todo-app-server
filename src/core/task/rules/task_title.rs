@@ -1,5 +1,6 @@
 use crate::core::common::rules::Rule;
 
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TaskTitle(String);
 
 #[derive(Debug)]

@@ -1,5 +1,6 @@
 use crate::core::common::rules::{MutableOrder, Order, Rule};
 
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TaskOrder(i32);
 
 impl Rule<i32> for TaskOrder {

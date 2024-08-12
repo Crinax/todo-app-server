@@ -19,13 +19,14 @@ impl<T: LoadTaskPort> GetTaskService<T> {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct GetTaskStruct {
     pub id: String,
     pub order: i32,
     pub title: String,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum GetTaskError<T> {
     ParseId,
     Load(T),
